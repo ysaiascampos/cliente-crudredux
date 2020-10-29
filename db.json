@@ -3,7 +3,7 @@
     {
       "id": 1,
       "nombre": "Jugo de Zanahoria",
-      "precio": "3443444"
+      "precio": "222"
     },
     {
       "nombre": "jugo de pera",
@@ -14,6 +14,11 @@
       "nombre": "jugo de naranja",
       "precio": 200,
       "id": 4
+    },
+    {
+      "nombre": "vodka",
+      "precio": 3333,
+      "id": 5
     }
   ]
 }

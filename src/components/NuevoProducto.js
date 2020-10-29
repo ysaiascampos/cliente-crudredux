@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { crearNuevoProductoAction } from '../actions/productoActions';
-import { mostrarAlertaAction } from '../actions/alertaActions';
+import { mostrarAlertaAction,ocultarAlertaAction } from '../actions/alertaActions';
 
 const NuevoProducto = ({history}) => {
 
@@ -16,6 +16,7 @@ const NuevoProducto = ({history}) => {
     // Acceder al state del store
     const cargando = useSelector(state => state.productos.loading);
     const error = useSelector(state => state.productos.error);
+    const alerta = useSelector(state => state.alerta.alerta);
 
 
     //llamar el action de productoAction
@@ -36,7 +37,7 @@ const NuevoProducto = ({history}) => {
         }
 
         // si no hay errores
-
+        dispatch(ocultarAlertaAction());
         // crear el nuevo producto
         agregarProducto({
             nombre,
@@ -55,6 +56,7 @@ const NuevoProducto = ({history}) => {
                         <h2 className="text-center mb-4 font-weight-bold">
                             Agregar Nuevo Producto
                         </h2>
+                        {alerta ? <p className={alerta.classes}>{alerta.msg}</p>:null}
                         <form
                             onSubmit={submitNuevoProducto}
                         >

@@ -12,3 +12,12 @@ const mostrarAlerta = alerta => ({
     type: MOSTRAR_ALERTA,
     payload: alerta
 })
+
+export function ocultarAlertaAction(alerta){
+    return (dispatch) => {
+        dispatch( ocultarAlerta(alerta) )
+    }
+}
+const ocultarAlerta = () => ({
+    type: OCULTAR_ALERTA
+})
