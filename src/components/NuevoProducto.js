@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { crearNuevoProductoAction } from '../actions/productoActions'
+import { crearNuevoProductoAction } from '../actions/productoActions';
+import { mostrarAlertaAction } from '../actions/alertaActions';
 
-const NuevoProducto = () => {
+const NuevoProducto = ({history}) => {
 
     //state del componente
     const [nombre, setNombre] = useState('');
@@ -11,6 +12,11 @@ const NuevoProducto = () => {
 
     // utilizar el use dispatch y te crea una función
     const dispatch = useDispatch();
+
+    // Acceder al state del store
+    const cargando = useSelector(state => state.productos.loading);
+    const error = useSelector(state => state.productos.error);
+
 
     //llamar el action de productoAction
     const agregarProducto = producto => dispatch(crearNuevoProductoAction(producto));
@@ -21,6 +27,11 @@ const NuevoProducto = () => {
 
         // validar formulario
         if(nombre.trim() === '' || precio <= 0){
+            const respuesta = {
+                msg: 'Ambos campos son obligatorios',
+                classes: 'alert alert-danger text-center text-uppercase p3'
+            }
+            dispatch(mostrarAlertaAction(respuesta))
             return;
         }
 
@@ -31,6 +42,8 @@ const NuevoProducto = () => {
             nombre,
             precio
         });
+
+        history.push('/');
     }
 
 
@@ -73,7 +86,9 @@ const NuevoProducto = () => {
                             >Agregar  
                             </button>
                         </form>
+                        { cargando ? <p  className="text-center">Cargando...</p> : null }
 
+                        { error ? <p className="font-weight-bold alert alert-danger p2 mt-4 text-center">Hubo un error</p> : null }
                     </div>
                 </div>
             </div>
